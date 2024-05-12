@@ -1,0 +1,82 @@
+{"properties": [
+  {
+    "name": "app.default.admin.username",
+    "type": "java.lang.String",
+    "description": "A description for 'app.default.admin.username'"
+  },
+  {
+    "name": "app.default.admin.password",
+    "type": "java.lang.String",
+    "description": "A description for 'app.default.admin.password'"
+  },
+  {
+    "name": "app.default.admin.display-name",
+    "type": "java.lang.String",
+    "description": "A description for 'app.default.admin.display-name'"
+  },
+  {
+    "name": "app.default.admin.lastname",
+    "type": "java.lang.String",
+    "description": "A description for 'app.default.admin.lastname'"
+  },
+  {
+    "name": "app.default.admin.firstname",
+    "type": "java.lang.String",
+    "description": "A description for 'app.default.admin.firstname'"
+  },
+  {
+    "name": "app.default.admin.country",
+    "type": "java.lang.String",
+    "description": "A description for 'app.default.admin.country'"
+  },
+  {
+    "name": "app.default.admin.email",
+    "type": "java.lang.String",
+    "description": "A description for 'app.default.admin.email'"
+  },
+  {
+    "name": "spring.cloud.vault.kv.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.vault.kv.enabled'"
+  },
+  {
+    "name": "spring.cloud.vault.authentication",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.vault.authentication'"
+  },
+  {
+    "name": "spring.cloud.vault.token",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.vault.token'"
+  },
+  {
+    "name": "spring.cloud.vault.scheme",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.vault.scheme'"
+  },
+  {
+    "name": "spring.cloud.vault.host",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.vault.host'"
+  },
+  {
+    "name": "spring.cloud.vault.port",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.vault.port'"
+  },
+  {
+    "name": "spring.cloud.config.import-check.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.config.import-check.enabled'"
+  },
+  {
+    "name": "app.vault.path",
+    "type": "java.lang.String",
+    "description": "A description for 'app.vault.path'"
+  },
+  {
+    "name": "app.vault.api.path",
+    "type": "java.lang.String",
+    "description": "A description for 'app.vault.api.path'"
+  }
+]}

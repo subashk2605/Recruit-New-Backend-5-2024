@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Your OTP for [Your Application Name]</title>
+</head>
+
+<body>
+	<p>Hi <span th:text="${name}">,</span></p>
+	<p>Here is your One-Time Password (OTP) for verifying your account on Recruit Appication:</p>
+	<p style="font-weight: bold; font-size: 18px;"><span th:text="${otp}">!</span></p>
+	<p>This OTP is valid for <span th:text="${duration}">duration</span> minutes. Please do not share it with anyone.
+	</p>
+	<p>If you did not request this OTP, please ignore this email.</p>
+	<p>Thanks,</p>
+	<p>The Recruit Team</p>
+</body>
+
+</html>
+
+
+
+
+
