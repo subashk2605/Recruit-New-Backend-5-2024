@@ -17,9 +17,8 @@ public class CustomUserDetails {
 	    private Long id;
 	    private String firstName;
 	    private String lastName;
-	    private String country;
 	    private String email;
-	    private EStatus status;
+		private String designation;
 	    private ERole role;
 
 }

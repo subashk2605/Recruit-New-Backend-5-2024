@@ -43,6 +43,7 @@ public class User {
 
 	private String email;
 	private String password;
+	private String designation;
 	private ERole role;
 	private boolean accountLockStatus = false;
 

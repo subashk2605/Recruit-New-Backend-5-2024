@@ -78,5 +78,10 @@
     "name": "app.vault.api.path",
     "type": "java.lang.String",
     "description": "A description for 'app.vault.api.path'"
+  },
+  {
+    "name": "app.default.admin.designation",
+    "type": "java.lang.String",
+    "description": "A description for 'app.default.admin.designation'"
   }
 ]}

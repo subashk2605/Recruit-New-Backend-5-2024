@@ -114,7 +114,7 @@ public class LdapForStgEmployees {
 				if (designationAttribute != null) {
 					String designation = designationAttribute.get().toString();
 
-					if (designation.contains("HR")) {
+					if (designation.contains("HR") || designation.contains("Manager") ) {
 
 						for (String attributeName : attributeNames) {
 

@@ -22,6 +22,7 @@ import com.stg.recruit.entity.dto.CustomUserDetails;
 import com.stg.recruit.entity.enumuration.ERole;
 import com.stg.recruit.entity.enumuration.EStatus;
 import com.stg.recruit.exception.RecruitException;
+import com.stg.recruit.repository.EmployeeRepository;
 import com.stg.recruit.repository.OtpRepository;
 import com.stg.recruit.repository.UserRepository;
 import com.stg.recruit.request.LoginRequest;
@@ -32,7 +33,9 @@ import com.stg.recruit.service.EmailService;
 
 @Service
 public class AuthServiceImpl implements AuthService {
-
+	
+	@Autowired
+	private EmployeeRepository employeeRepository;
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -54,10 +57,13 @@ public class AuthServiceImpl implements AuthService {
 
 	@Value("${app.default.admin.password}")
 	private String defaultAdminPassword;
+	
+	@Value("${app.default.admin.designation}")
+	private String defaultAdminDesignation;
 
 	@Override
 	public User saveUser(User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword())); // Hash password before saving
+		user.setPassword(passwordEncoder.encode(defaultAdminPassword)); // Hash password before saving
 		return userRepository.save(user);
 	}
 
@@ -69,12 +75,18 @@ public class AuthServiceImpl implements AuthService {
 		user.setEmail(defaultAdminEmail);
 		user.setPassword(passwordEncoder.encode(defaultAdminPassword));
 		user.setRole(ERole.RECRUITER_ADMIN);
+		user.setDesignation(defaultAdminDesignation);
 		userRepository.save(user);
 	}
 
 	@Override
 	public boolean doUserExists() throws Exception {
 		return userRepository.findAll().size() == 0;
+	}
+	
+	@Override
+	public boolean doSTGEmployeesExists() throws Exception {
+		return employeeRepository.findAll().size() == 0;
 	}
 
 	@Override

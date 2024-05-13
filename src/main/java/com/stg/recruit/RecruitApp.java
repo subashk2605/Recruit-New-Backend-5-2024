@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.stg.recruit.service.AuthService;
+import com.stg.recruit.ldap.LdapForStgEmployees;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 public class RecruitApp {
 	
 	private final AuthService authService;
+	
+	private final LdapForStgEmployees ldapForStgEmployees;
 
 	public static void main(String[] args) {
 		SpringApplication.run(RecruitApp.class, args);
@@ -24,6 +27,10 @@ public class RecruitApp {
 		return args -> {
 			if (authService.doUserExists()) {
 				authService.createDefaultAdminUser();
+			}
+			
+			if(authService.doSTGEmployeesExists()) {
+				ldapForStgEmployees.getUserDetails();
 			}
 		};
 	}
