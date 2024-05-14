@@ -11,7 +11,7 @@ import com.stg.recruit.request.LoginRequest;
 
 public interface AuthService {
 
-	public abstract User saveUser(User user);
+	public abstract String saveUser(CustomUserDetails userDetails) throws RecruitException;
 
 	public abstract void createDefaultAdminUser() throws Exception;
 

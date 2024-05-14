@@ -28,7 +28,7 @@ public class STGEmployee {
 
 	private String designation;
 
-	private String mail;
+	private String email;
 
 }
 

@@ -36,10 +36,10 @@ public class AuthController {
 	@Autowired
 	private UserService userService;
 
-	@PostMapping("/signup")
-	public ResponseEntity<User> signup(@RequestBody User user) {
-		User savedUser = authService.saveUser(user);
-		return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+	@PostMapping("/adduser")
+	public ResponseEntity<String> signup(@RequestBody CustomUserDetails user) throws RecruitException {
+		String savedUser = authService.saveUser(user);
+		return ResponseEntity.ok(savedUser);
 	}
 
 	@PostMapping("/signin")

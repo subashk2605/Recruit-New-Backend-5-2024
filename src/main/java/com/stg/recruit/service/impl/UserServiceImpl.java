@@ -24,10 +24,10 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	@Autowired
 	private AuthService authService;
 
@@ -39,18 +39,41 @@ public class UserServiceImpl implements UserService {
 
 	private CustomUserDetails convertToCustomUserDetails(User user) {
 		return modelMapper.map(user, CustomUserDetails.class);
+
 	}
 
 	@Override
 	public CustomUserDetails getUserById() {
 		return authService.customUserPrincipal();
-	}	
-	
-	@Override
-	public List<STGEmployee> getAllEmployee() throws RecruitException {	
-         return employeeRepository.findAll();
-	
 	}
+
+	@Override
+	public List<STGEmployee> getAllEmployee() throws RecruitException {
+		return employeeRepository.findAll();
+
+	}
+
+	@Override
+	public List<CustomUserDetails> getStgEmployees() throws RecruitException {
+		List<STGEmployee> stgEmployees = getAllEmployee();
+
+		List<CustomUserDetails> customUserDetailsList = stgEmployees.stream().map(this::convertToCustomUserDetails)
+				.collect(Collectors.toList());
+		return customUserDetailsList;
+	}
+
+	private CustomUserDetails convertToCustomUserDetails(STGEmployee stgEmployee) {
+		
+		CustomUserDetails customUserDetails = new CustomUserDetails();
+		customUserDetails.setId(stgEmployee.getId());
+		customUserDetails.setFullName(stgEmployee.getEmployeeFirstName()+" "+stgEmployee.getEmployeeLastName());
+		customUserDetails.setFirstName(stgEmployee.getEmployeeFirstName());
+		customUserDetails.setLastName(stgEmployee.getEmployeeLastName());
+		customUserDetails.setEmail(stgEmployee.getEmail());
+		customUserDetails.setDesignation(stgEmployee.getDesignation());
+		return customUserDetails;
+	}
+	
 	
 	
 	

@@ -29,7 +29,7 @@ public class SecurityConfiguration {
             "/api/auth/**"
     };
 
-    private static final String USER_API_PATTERN = "/api/auth/**";
+    private static final String USER_API_PATTERN = "/api/user/**";
 
     private static final String[] ALLOWED_USER_API_ROLES = new String[] { ERole.RECRUITER_ADMIN.name(), ERole.RECRUITER.name() };
 
@@ -51,7 +51,10 @@ public class SecurityConfiguration {
         return http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> {
-                auth.requestMatchers(GLOBAL_EXCLUDE_API_PATTERN).permitAll(); 
+                auth.requestMatchers(GLOBAL_EXCLUDE_API_PATTERN).permitAll();
+                auth.requestMatchers(USER_API_PATTERN).authenticated();
+                auth.requestMatchers("/api/auth/adduser").hasAuthority("RECRUITER_ADMIN");
+                auth.requestMatchers("/api/user/stg").hasAuthority("RECRUITER_ADMIN");
                 auth.requestMatchers("/api/auth/all").hasAuthority("RECRUITER_ADMIN"); 
                 auth.anyRequest().authenticated();
             })

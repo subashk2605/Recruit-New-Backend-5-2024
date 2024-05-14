@@ -62,10 +62,16 @@ public class AuthServiceImpl implements AuthService {
 	private String defaultAdminDesignation;
 
 	@Override
-	public User saveUser(User user) {
-		user.setPassword(passwordEncoder.encode(defaultAdminPassword)); // Hash password before saving
-		return userRepository.save(user);
+	public String saveUser(CustomUserDetails userDetails) throws RecruitException {
+	    if (userRepository.existsByEmail(userDetails.getEmail() )) {
+	        throw new RecruitException("User with this email already exists");
+	    }    
+		    User user = modelMapper.map(userDetails, User.class);
+	    user.setPassword(passwordEncoder.encode(defaultAdminPassword)); // Hash password before saving
+	    userRepository.save(user);
+	    return "User added successfully";
 	}
+
 
 	@Override
 	public void createDefaultAdminUser() throws Exception {

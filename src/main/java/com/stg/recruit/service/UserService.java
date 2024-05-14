@@ -34,6 +34,8 @@ public interface UserService {
     public abstract CustomUserDetails getUserById();
     
 	public abstract List<STGEmployee> getAllEmployee() throws RecruitException;
+	
+	public abstract List<CustomUserDetails> getStgEmployees() throws RecruitException;
 
     
 }
