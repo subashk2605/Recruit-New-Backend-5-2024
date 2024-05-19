@@ -15,9 +15,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.stg.recruit.entity.Candidate;
+import com.stg.recruit.entity.Interview;
 import com.stg.recruit.entity.STGEmployee;
 import com.stg.recruit.entity.User;
 import com.stg.recruit.entity.dto.CustomUserDetails;
+import com.stg.recruit.entity.dto.ScheduleInterview;
 import com.stg.recruit.entity.enumuration.ERole;
 import com.stg.recruit.entity.enumuration.EStatus;
 import com.stg.recruit.exception.RecruitException;
@@ -37,6 +40,9 @@ public interface UserService {
 	
 	public abstract List<CustomUserDetails> getStgEmployees() throws RecruitException;
 
+	public abstract String saveCandidate(Candidate candidate) throws RecruitException;
+	
+	public abstract String saveAndScheduleCandidate(ScheduleInterview scheduleInterview) throws RecruitException;
     
 }
     

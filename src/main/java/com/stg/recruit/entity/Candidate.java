@@ -1,8 +1,12 @@
 package com.stg.recruit.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.stg.recruit.entity.enumuration.EApplicationStatus;
@@ -86,9 +90,11 @@ public class Candidate {
 	@JsonManagedReference(value = "userCandidate")
 	private User userCandidateRef;
 
-	private LocalDate createdDate;
-
-	private LocalDate updatedDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	private LocalDateTime createdDate;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	private LocalDateTime updatedDate;
 
 	private String panNumber;
 }
