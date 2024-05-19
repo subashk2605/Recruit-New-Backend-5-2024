@@ -7,10 +7,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.stg.recruit.entity.Candidate;
 import com.stg.recruit.entity.dto.CustomUserDetails;
+import com.stg.recruit.entity.dto.ScheduleInterview;
 import com.stg.recruit.exception.RecruitException;
 import com.stg.recruit.service.UserService;
 
@@ -30,6 +35,18 @@ public class UserController {
 	        } catch (RecruitException e) {
 	            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	        }
+	    }
+	 
+	 @PutMapping("/candidate")
+	 public ResponseEntity<String> saveCandidate(@RequestBody Candidate candidate) throws RecruitException {
+	     String response = userService.saveCandidate(candidate);
+	     return new ResponseEntity<>(response, HttpStatus.OK);
+	 }
+
+	 @PostMapping("/candidates/schedule")
+	    public ResponseEntity<String> saveAndScheduleCandidate(@RequestBody ScheduleInterview scheduleInterview) throws RecruitException {
+	        String response = userService.saveAndScheduleCandidate(scheduleInterview);
+	        return new ResponseEntity<>(response, HttpStatus.CREATED); // Created status for successful scheduling
 	    }
 
 }
