@@ -21,4 +21,6 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 			+ "FROM Candidate  WHERE email = :email OR phoneNo = :phoneNo")
 	public abstract boolean existByEmailOrPhoneNo(String email, long phoneNo);
 
+	public abstract boolean existsByEmailOrPhoneNo(String email, long phoneNo);
+
 }
