@@ -1,6 +1,9 @@
 package com.stg.recruit.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.Set;
 
 import org.hibernate.validator.constraints.Range;
@@ -21,6 +24,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,8 +43,10 @@ public class Interview {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long interviewId;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-	private LocalDateTime interviewDateTime;
+	@Temporal(TemporalType.DATE)
+	private Date interviewDate;
+
+	private LocalTime interviewTime;
 
 	@Enumerated(EnumType.STRING)
 	private EInterviewStatus status;
