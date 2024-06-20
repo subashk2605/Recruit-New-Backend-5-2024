@@ -56,6 +56,8 @@ public class SecurityConfiguration {
                 auth.requestMatchers("/api/auth/adduser").hasAuthority("RECRUITER_ADMIN");
                 auth.requestMatchers("/api/user/stg").hasAuthority("RECRUITER_ADMIN");
                 auth.requestMatchers("/api/auth/all").hasAuthority("RECRUITER_ADMIN"); 
+                auth.requestMatchers("/api/candidates").hasAnyAuthority(ALLOWED_USER_API_ROLES);
+
                 auth.anyRequest().authenticated();
             })
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))    
