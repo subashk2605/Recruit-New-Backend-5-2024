@@ -37,16 +37,5 @@ public class UserController {
 	        }
 	    }
 	 
-	 @PutMapping("/candidate")
-	 public ResponseEntity<String> saveCandidate(@RequestBody Candidate candidate) throws RecruitException {
-	     String response = userService.saveCandidate(candidate);
-	     return new ResponseEntity<>(response, HttpStatus.OK);
-	 }
-
-	 @PostMapping("/candidates/schedule")
-	    public ResponseEntity<String> saveAndScheduleCandidate(@RequestBody ScheduleInterview scheduleInterview) throws RecruitException {
-	        String response = userService.saveAndScheduleCandidate(scheduleInterview);
-	        return new ResponseEntity<>(response, HttpStatus.CREATED); // Created status for successful scheduling
-	    }
 
 }

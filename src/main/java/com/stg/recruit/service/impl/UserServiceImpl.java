@@ -87,33 +87,7 @@ public class UserServiceImpl implements UserService {
 		return customUserDetails;
 	}
 
-	@Override
-	public String saveCandidate(Candidate candidate) throws RecruitException {
-	    if (!candidateRepository.existsById(candidate.getCandidateId())) {
-	        candidate.setApplicationStatus(EApplicationStatus.SAVED);
-	        candidate.setCreatedDate(LocalDateTime.now());
-	    }
-	    candidate.setUpdatedDate(LocalDateTime.now());
-	    candidateRepository.save(candidate);
-	    return "Saved";
-	}
 
-
-	@Override
-	public String saveAndScheduleCandidate(ScheduleInterview scheduleInterview) throws RecruitException {
-		Candidate candidate = scheduleInterview.getCandidate();
-		Interview interview =  scheduleInterview.getInterview();
-		if (candidate != null) {
-			candidate.setApplicationStatus(EApplicationStatus.INTERVIEW_SCHEDULED);
-			candidate.setUpdatedDate(LocalDateTime.now());
-			interview.setCandidateInterviewRef(candidate);
-			candidateRepository.save(candidate);
-			interviewRepository.save(interview);
-			return "Interview Scheduled";
-		}else {
-			throw new RecruitException();
-		}
-	}
 	
 	
 

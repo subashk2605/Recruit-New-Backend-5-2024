@@ -40,9 +40,7 @@ public interface UserService {
 	
 	public abstract List<CustomUserDetails> getStgEmployees() throws RecruitException;
 
-	public abstract String saveCandidate(Candidate candidate) throws RecruitException;
-	
-	public abstract String saveAndScheduleCandidate(ScheduleInterview scheduleInterview) throws RecruitException;
+
     
 }
     
