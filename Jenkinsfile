@@ -20,5 +20,13 @@ pipeline {
                 // sh 'mvn clean package'
             }
         }
+       stage('Run JAR (Windows)') {
+      steps {
+        
+        bat 'java -jar target/RecruitApp-0.0.1-SNAPSHOT.jar'
+
+      
+      }
+    }
     }
 }
