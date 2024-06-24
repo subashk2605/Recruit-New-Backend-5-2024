@@ -1,5 +1,6 @@
 pipeline {
-    agent any
+    agent any  // Run on any available agent (optional)
+
     stages {
         stage('Checkout Code') {
             steps {
@@ -8,7 +9,10 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat 'mvn clean package'
+                // Option 1: Using full path for cmd 
+                bat 'C:\Windows\System32\cmd.exe /c mvn clean package'  
+                // Option 2: Using sh for shell script
+                // sh 'mvn clean package'
             }
         }
     }
