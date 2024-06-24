@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Option 1: Using full path for cmd 
-                bat 'C:\Windows\System32\cmd.exe /c mvn clean package'  
+              bat 'C:\\Windows\\System32\\cmd.exe /c mvn clean package'
                 // Option 2: Using sh for shell script
                 // sh 'mvn clean package'
             }
