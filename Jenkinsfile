@@ -1,28 +1,20 @@
 pipeline {
-    agent any
-
-       environment {
-        MAVEN_HOME = tool name: 'Maven', type: 'maven'
-        JAVA_HOME = 'C:\\Program Files\\OpenLogic\\jdk-17.0.11.9-hotspot'
-        GIT_HOME = 'C:\\Program Files\\Git\\bin'
-        PATH = "${env.PATH};C:\\Windows\\System32;${env.JAVA_HOME}\\bin;${env.GIT_HOME}"
+    agent {
+        node {
+            label 'windows'
+        }
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
-                bat 'git checkout BoseK'
-                bat 'git pull'
+                git branch: 'BoseK', credentialsId: 'c7874b7f-40e7-469e-8dce-daf061a2b11a', url: 'https://github.com/subashk2605/Recruit-New-Backend-5-2024.git'
             }
         }
         stage('Build') {
             steps {
-                dir('Recruit New Backend 5-2024') {
-                    bat 'mvn clean package'
-                }
+                bat 'mvn clean package'
             }
         }
-     
-     
-        }
     }
+}
