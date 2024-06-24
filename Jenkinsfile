@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'windows-agent' }
+    agent { label 'any' }
     stages {
         stage('Checkout') {
             steps {
