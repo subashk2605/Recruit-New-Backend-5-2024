@@ -1,11 +1,13 @@
 pipeline {
     agent any  // Run on any available agent (optional)
-       environment {
+    environment {
         MAVEN_HOME = tool name: 'Maven', type: 'maven'
         JAVA_HOME = 'C:\\Program Files\\OpenLogic\\jdk-17.0.11.9-hotspot'
         GIT_HOME = 'C:\\Program Files\\Git\\bin'
         PATH = "${env.PATH};C:\\Windows\\System32;${env.JAVA_HOME}\\bin;${env.GIT_HOME}"
+        
     }
+    
     stages {
         stage('Checkout Code') {
             steps {
@@ -14,19 +16,44 @@ pipeline {
         }
         stage('Build') {
             steps {
-                // Option 1: Using full path for cmd 
-              bat 'C:\\Windows\\System32\\cmd.exe /c mvn clean package'
-                // Option 2: Using sh for shell script
-                // sh 'mvn clean package'
+                bat 'C:\\Windows\\System32\\cmd.exe /c mvn clean package'
             }
         }
-       stage('Run JAR (Windows)') {
-      steps {
-        
-        bat 'java -jar target/RecruitApp-0.0.1-SNAPSHOT.jar'
+ 
+  stage('Stop Container') {
+            steps {
+                script {
+                    try {
+                        def oldContainerName = "recruit-springboot-app"
 
-      
-      }
-    }
+                        echo "Stopping and removing old container: ${oldContainerName}"
+                        bat "docker stop ${oldContainerName} || echo 'Container ${oldContainerName} is not running'"
+                        bat "docker rm ${oldContainerName} || echo 'Container ${oldContainerName} does not exist'"
+
+                        echo "Removing old image: recruit-app"
+                        bat "docker rmi recruit-app || echo 'Image recruit-app does not exist'"
+                    } catch (Exception e) {
+                        echo "Error occurred: ${e.message}"
+                    }
+                }
+            }
+        }
+       stage('Docker Build and Run') {
+            steps {
+                script {
+                    def containerName = 'recruit-springboot-app'
+                    def imageName = 'recruit-app'
+                    def imageTag = 'latest'
+                    def portMapping = '9091:9091' // Adjust the port mapping as needed
+
+                    // Build Docker image
+                    bat "docker build -t ${imageName}:${imageTag} ."
+                    
+                    // Run the new container with environment variables for Spring Boot application
+                    bat "docker run -d --name ${containerName} -p ${portMapping} -e SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/recruit_app -e SPRING_DATASOURCE_USERNAME=root -e SPRING_DATASOURCE_PASSWORD=343592 ${imageName}:${imageTag}"
+                }
+            }
+        }
+    
     }
 }
