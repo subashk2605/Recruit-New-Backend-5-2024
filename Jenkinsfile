@@ -27,8 +27,8 @@ pipeline {
                         def oldContainerName = "recruit-springboot-app"
 
                         echo "Stopping and removing old container: ${oldContainerName}"
-                        bat "docker stop ${oldContainerName} || echo 'Container ${oldContainerName} is not running'"
-                        bat "docker rm ${oldContainerName} || echo 'Container ${oldContainerName} does not exist'"
+                        bat "docker stop ${oldContainerName}  echo 'Container ${oldContainerName} is not running'"
+                        bat "docker rm ${oldContainerName}  echo 'Container ${oldContainerName} does not exist'"
 
                         echo "Removing old image: recruit-app"
                         bat "docker rmi recruit-app || echo 'Image recruit-app does not exist'"
@@ -56,4 +56,4 @@ pipeline {
         }
     
     }
-
+}
