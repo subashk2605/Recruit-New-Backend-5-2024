@@ -38,18 +38,13 @@ jobs:
         path: target/*.jar
         
     - name: Run JAR file with environment variables
-  run: |
-    java ^
-      -Dspring.datasource.url="${{ secrets.MYSQL_URL }}" ^
-      -Dspring.datasource.username="${{ secrets.MYSQL_USERNAME }}" ^
-      -Dspring.datasource.password="${{ secrets.MYSQL_PASSWORD }}" ^
-      -jar target/RecruitApp-0.0.1-SNAPSHOT.jar
-  env:
-    MYSQL_URL: ${{ secrets.MYSQL_URL }}
-    MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
-    MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-
-      env:
-        MYSQL_URL: ${{ secrets.MYSQL_URL }}
-        MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
-        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+      run: |
+       java ^
+       -Dspring.datasource.url="${{ secrets.MYSQL_URL }}" ^
+       -Dspring.datasource.username="${{ secrets.MYSQL_USERNAME }}" ^
+       -Dspring.datasource.password="${{ secrets.MYSQL_PASSWORD }}" ^
+       -jar target/RecruitApp-0.0.1-SNAPSHOT.jar
+    env:
+     MYSQL_URL: ${{ secrets.MYSQL_URL }}
+     MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
+     MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
