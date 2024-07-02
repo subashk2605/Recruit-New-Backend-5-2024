@@ -119,6 +119,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<mainClass>com.stg.recruit.RecruitApp</mainClass>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

@@ -1,0 +1,57 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        ref: BoseK
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-maven
+
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+
+    - name: Test with Maven
+      run: mvn test
+
+    - name: Publish JAR artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: spring-boot-app
+        path: target/*.jar
+
+    - name: Login to Docker registry (if needed)
+      run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
+     
+    - name: Build Docker image
+      run: |
+        docker build -t recruit-backend:latest .
+
+    - name: Run Docker container
+      env:
+        MYSQL_URL: ${{ secrets.MYSQL_URL }}
+        MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
+        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+      run: |
+        docker run -d --name spring-boot-app \
+          -e SPRING_DATASOURCE_URL="${{ secrets.MYSQL_URL }}" \
+          -e SPRING_DATASOURCE_USERNAME="${{ secrets.MYSQL_USERNAME }}" \
+          -e SPRING_DATASOURCE_PASSWORD="${{ secrets.MYSQL_PASSWORD }}" \
+          -p 9091:9091 recruit-backend:latest
