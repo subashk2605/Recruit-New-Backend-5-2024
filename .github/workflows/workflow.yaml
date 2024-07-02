@@ -38,15 +38,21 @@ jobs:
         path: target/*.jar
    
       
-    - name: Run JAR file with environment variables
-      shell: pwsh
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build Docker image
       run: |
-        java -Dspring.datasource.url="${env:MYSQL_URL}" -Dspring.datasource.username="${env:MYSQL_USERNAME}" -Dspring.datasource.password="${env:MYSQL_PASSWORD}" -jar target/RecruitApp-0.0.1-SNAPSHOT.jar
-           
-           
-           
-          -jar target/RecruitApp-0.0.1-SNAPSHOT.jar
+        docker build -t recruit-backend:latest .
+
+    - name: Run Docker container
       env:
         MYSQL_URL: ${{ secrets.MYSQL_URL }}
         MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
         MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+      run: |
+        docker run -d --name spring-boot-app \
+          -e SPRING_DATASOURCE_URL="${{ secrets.MYSQL_URL }}" \
+          -e SPRING_DATASOURCE_USERNAME="${{ secrets.MYSQL_USERNAME }}" \
+          -e SPRING_DATASOURCE_PASSWORD="${{ secrets.MYSQL_PASSWORD }}" \
+          -p 9091:9091 recruit-backend:latest
