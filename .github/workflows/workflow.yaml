@@ -36,10 +36,18 @@ jobs:
       with:
         name: spring-boot-app
         path: target/*.jar
+        
+    - name: List contents of target directory
+      run: ls target
 
-    - name: Run JAR file
-      run: java -jar target/RecruitApp-0.0.1-SNAPSHOT.jar
+    - name: Run JAR file with environment variables
+      run: |
+        java -Dspring.datasource.url="${{ secrets.MYSQL_URL }}" \
+             -Dspring.datasource.username="${{ secrets.MYSQL_USERNAME }}" \
+             -Dspring.datasource.password="${{ secrets.MYSQL_PASSWORD }}" \
+             -jar target/RecruitApp-0.0.1-SNAPSHOT.jar
       env:
-        MYSQL_URL: ${{ secrets.MYSQL_URL }}
-        MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
-        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+         MYSQL_URL: ${{ secrets.MYSQL_URL }}
+         MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
+         MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+
