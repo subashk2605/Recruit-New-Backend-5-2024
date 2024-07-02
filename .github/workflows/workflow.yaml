@@ -36,9 +36,8 @@ jobs:
       with:
         name: spring-boot-app
         path: target/*.jar
-   
-      
-    - name: Set up Docker Buildx
+
+    - name: Install Docker
       uses: docker/setup-buildx-action@v3
 
     - name: Build Docker image
