@@ -1,4 +1,4 @@
-FROM openjdk:17.0.2-jdk-windowsservercore-ltsc2022
+FROM FROM openjdk:17-jdk-slim
 
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
